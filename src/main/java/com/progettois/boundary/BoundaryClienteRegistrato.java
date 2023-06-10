@@ -194,7 +194,7 @@ public class BoundaryClienteRegistrato extends BoundaryCliente{
 			System.out.println();
         }
     }
-    
+        
 
     public void completaAcquisto(){
         
