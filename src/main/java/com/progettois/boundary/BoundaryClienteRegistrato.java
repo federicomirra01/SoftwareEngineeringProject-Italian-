@@ -1,7 +1,6 @@
 package com.progettois.boundary;
 
 import java.util.NoSuchElementException;
-import java.util.Random;
 import java.util.Scanner;
 
 
@@ -74,118 +73,126 @@ public class BoundaryClienteRegistrato extends BoundaryCliente{
         boolean valido = false;
         String conferma = null;
 
-        do{
+        try{
+            do{
 
-            while(!valido) {
-				
-                try {
-                    System.out.println("Inserire tipo di libro da inserire, scegliere 1 per libro cartaceo e 2 per libro digitale");
-                    System.out.println("1. Libro cartaceo");
-                    System.out.println("2. Libro digitale");
+                while(!valido) {
                     
-                    op = input.nextLine();
-                    
-                    if(op.equals("1") || op.equals("2"))
-                        valido = true;
-                } catch(NoSuchElementException e) {
-                        e.printStackTrace();
-                }catch(IllegalStateException e){
-                        e.printStackTrace();
-                }
-		    }
-			
-		    valido = false;
-        
-            if(op.equals("1")){
-
-                while(!valido){
-                    try{
-
-                        System.out.println("Inserire codice ISBN");
-                        codiceISBN = Long.parseLong(input.nextLine());
-                        if(LibroCartaceoDAO.readLibroCartaceo(codiceISBN) != null)
-                            valido = true;
-                    } catch(NoSuchElementException e) {
-                        System.out.println(e.getMessage());
-                    }catch(IllegalStateException e){
-                        e.printStackTrace();
-                    } catch (DAOException e) {
-                        e.printStackTrace();
-                    } catch (DBConnectionException e) {
-                        e.printStackTrace();
-                    }
-                    
-                }
-
-                valido = false;
-
-                while(!valido){
-                
-                    try{
-
-                        System.out.println("Inserire quantità da acquistare");
-                        qtRichiesta = Integer.parseInt(input.nextLine());
-                        if(qtRichiesta > 0)
-                            valido = true;
-
-                    }catch(NoSuchElementException e) {
-                        e.printStackTrace();
-                    }catch(IllegalStateException e){
-                        e.printStackTrace();
-                    }
-                    
-                }
-
-                valido = false;
-
-                try {
-                    gl.popolaCarrello(codiceISBN, qtRichiesta, clienteRegistrato);
-                } catch (OperationException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else{
-
-                while(!valido){
-                    try{
-
-                        System.out.println("Inserire codice ISBN");
-                        codiceISBN = Long.parseLong(input.nextLine());
-                        if(LibroDigitaleDAO.readLibroDigitale(codiceISBN) != null)
-                            valido = true;
-
+                    try {
+                        System.out.println("Inserire tipo di libro da inserire, scegliere 1 per libro cartaceo e 2 per libro digitale");
+                        System.out.println("1. Libro cartaceo");
+                        System.out.println("2. Libro digitale");
                         
+                        op = input.nextLine();
+                        
+                        if(op.equals("1") || op.equals("2"))
+                            valido = true;
                     } catch(NoSuchElementException e) {
-                        e.printStackTrace();
+                            e.printStackTrace();
                     }catch(IllegalStateException e){
-                        e.printStackTrace();
-                    } catch (DAOException e) {
-                        e.printStackTrace();
-                    } catch (DBConnectionException e) {
-                        e.printStackTrace();
+                            e.printStackTrace();
                     }
-                  
                 }
-
-                try {
-                    gl.popolaCarrelo(codiceISBN, clienteRegistrato);
-                } catch (OperationException e) {
-                    System.out.println(e.getMessage());
-                }
-
+                
                 valido = false;
             
-            }
+                if(op.equals("1")){
 
-            System.out.println("Vuoi continuare ad aggiungere libri? (Y | y))");
-            conferma = input.nextLine();
+                    while(!valido){
+                        try{
 
-        } while(conferma.equals("y") || conferma.equals("Y"));
+                            System.out.println("Inserire codice ISBN");
+                            codiceISBN = Long.parseLong(input.nextLine());
+                            if(LibroCartaceoDAO.readLibroCartaceo(codiceISBN) != null)
+                                valido = true;
+                        } catch(NoSuchElementException e) {
+                            System.out.println(e.getMessage());
+                        }catch(IllegalStateException e){
+                            e.printStackTrace();
+                        } catch (DAOException e) {
+                            e.printStackTrace();
+                        } catch (DBConnectionException e) {
+                            e.printStackTrace();
+                        }
+                        
+                    }
 
-        //stampa carrello quando non vuole più aggiungere
-        gl.stampaCarrello(clienteRegistrato.getIdCarrello());
-        //System.out.println("Prodotti aggiunti al carrello");
+                    valido = false;
 
+                    while(!valido){
+                    
+                        try{
 
+                            System.out.println("Inserire quantità da acquistare");
+                            qtRichiesta = Integer.parseInt(input.nextLine());
+                            if(qtRichiesta > 0)
+                                valido = true;
+
+                        }catch(NoSuchElementException e) {
+                            e.printStackTrace();
+                        }catch(IllegalStateException e){
+                            e.printStackTrace();
+                        }
+                        
+                    }
+
+                    valido = false;
+
+                    try {
+                        gl.popolaCarrello(codiceISBN, qtRichiesta, clienteRegistrato);
+                    } catch (OperationException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else{
+
+                    while(!valido){
+                        try{
+
+                            System.out.println("Inserire codice ISBN");
+                            codiceISBN = Long.parseLong(input.nextLine());
+                            if(LibroDigitaleDAO.readLibroDigitale(codiceISBN) != null)
+                                valido = true;
+
+                            
+                        } catch(NoSuchElementException e) {
+                            e.printStackTrace();
+                        }catch(IllegalStateException e){
+                            e.printStackTrace();
+                        } catch (DAOException e) {
+                            e.printStackTrace();
+                        } catch (DBConnectionException e) {
+                            e.printStackTrace();
+                        }
+                    
+                    }
+
+                    try {
+                        gl.popolaCarrelo(codiceISBN, clienteRegistrato);
+                    } catch (OperationException e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    valido = false;
+                
+                }
+
+                System.out.println("Vuoi continuare ad aggiungere libri? (Y | y))");
+                conferma = input.nextLine();
+
+            } while(conferma.equals("y") || conferma.equals("Y"));
+
+            //stampa carrello quando non vuole più aggiungere
+            
+                gl.stampaCarrello(clienteRegistrato.getIdCarrello());
+            
+            //System.out.println("Prodotti aggiunti al carrello");
+
+        } catch(OperationException e){
+            System.out.println(e.getMessage());
+        } catch(Exception e){
+            System.out.println("Unexpexted exception, riprovare");
+			System.out.println();
+        }
     }
     
 
@@ -198,23 +205,13 @@ public class BoundaryClienteRegistrato extends BoundaryCliente{
                 System.out.println("Pagamento rifiutato");
 
         } catch (OperationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+        } catch(Exception e){
+            System.out.println("Unexpexted exception, riprovare");
+			System.out.println();
         }
         
-        /*Random rand = new Random();
-        int value = rand.nextInt(1);
-        if(value == 0){
-            try {
-                gl.completaAcquisto(clienteRegistrato.getIdCarrello(), clienteRegistrato.getIdClienteRegistrato());
-            } catch (OperationException e) {
-                e.printStackTrace();
-            }
-        } else{
-            System.out.println("Pagamento rifiutato");
-            //stato rifiutato
-
-        }*/
+        
 
 
     }

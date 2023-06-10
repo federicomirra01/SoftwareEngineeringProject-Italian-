@@ -222,21 +222,6 @@ public class GestioneLibreria {
 				System.out.println("Libro digitale già presente nel carrello");
 			}
 
-			/*ArrayList<Long> listaCodiciISBNDigitali = InserimentoDigitaleDAO
-					.readInserimentoDigitale(eCR.getIdCarrello());
-
-			for (long codiceISBNDigitale : listaCodiciISBNDigitali) {
-
-				System.out.println(LibroDigitaleDAO.readLibroDigitale(codiceISBNDigitale).toString());
-
-			}
-
-			for(Libro libro : carrello.getLibri()){
-
-					System.out.println(libro.toString());					
-				}
-
-			System.out.println("| " + carrello.getPrezzoTotale());*/
 
 		} catch (DAOException e) {
 			throw new OperationException(e.getMessage());
@@ -275,66 +260,66 @@ public class GestioneLibreria {
 			//ACCETTATO
 			if(banca==0){
 
-			if (!listaLibriDigitali.isEmpty()) {
+				if (!listaLibriDigitali.isEmpty()) {
 
-				long idOrdineDigitale = oD.createOrdineDigitale();
-				oD.setIdOrdine(idOrdineDigitale);
+					long idOrdineDigitale = oD.createOrdineDigitale();
+					oD.setIdOrdine(idOrdineDigitale);
 
-				for (EntityLibroDigitale libro : listaLibriDigitali) {
+					for (EntityLibroDigitale libro : listaLibriDigitali) {
 
-					AcquistoDigitaleDAO.createAcquistoDigitale(idOrdineDigitale, libro.getCodiceISBN());
+						AcquistoDigitaleDAO.createAcquistoDigitale(idOrdineDigitale, libro.getCodiceISBN());
 
-					oD.setPrezzo(oD.getPrezzo() + libro.getPrezzo());
-					oD.updatePrezzo();
-					InserimentoDigitaleDAO.delete(idCarrello, libro.getCodiceISBN());
-					visualizzaOrdineDigitale(idOrdineDigitale);
+						oD.setPrezzo(oD.getPrezzo() + libro.getPrezzo());
+						oD.updatePrezzo();
+						InserimentoDigitaleDAO.delete(idCarrello, libro.getCodiceISBN());
+						visualizzaOrdineDigitale(idOrdineDigitale);
 
-				}
-
-			}
-
-			if (!listaLibriCartacei.isEmpty()) {
-
-				long idOrdineCartaceo = oC.createOrdineCartaceo();
-				oC.setIdOrdine(idOrdineCartaceo);
-
-				for (EntityLibroCartaceo libro : listaLibriCartacei.keySet()) {
-
-					int qt = listaLibriCartacei.get(libro).intValue();
-
-					if (libro.getQtdisponibile() >= qt) {
-
-						AcquistoCartaceoDAO.createAcquistoCartaceo(idOrdineCartaceo, libro.getCodiceISBN(), qt);
-						libro.setQtDisponibile(libro.getQtdisponibile() - qt);
-						LibroCartaceoDAO.updateQtLibroCartaceo(libro);
-
-						oC.setPrezzo(oC.getPrezzo() + (libro.getPrezzo() * qt));
-						oC.updatePrezzo();
-
-					} else {
-
-						System.out.println("Quantità richiesta maggiore della quantità disponibile per il libro: ");
-						System.out.println(libro.toString());
 					}
 
-					InserimentoCartaceoDAO.delete(idCarrello, libro.getCodiceISBN());
-					visualizzaOrdineCartaceo(idOrdineCartaceo);
 				}
+
+				if (!listaLibriCartacei.isEmpty()) {
+
+					long idOrdineCartaceo = oC.createOrdineCartaceo();
+					oC.setIdOrdine(idOrdineCartaceo);
+
+					for (EntityLibroCartaceo libro : listaLibriCartacei.keySet()) {
+
+						int qt = listaLibriCartacei.get(libro).intValue();
+
+						if (libro.getQtdisponibile() >= qt) {
+
+							AcquistoCartaceoDAO.createAcquistoCartaceo(idOrdineCartaceo, libro.getCodiceISBN(), qt);
+							libro.setQtDisponibile(libro.getQtdisponibile() - qt);
+							LibroCartaceoDAO.updateQtLibroCartaceo(libro);
+
+							oC.setPrezzo(oC.getPrezzo() + (libro.getPrezzo() * qt));
+							oC.updatePrezzo();
+
+						} else {
+
+							System.out.println("Quantità richiesta maggiore della quantità disponibile per il libro: ");
+							System.out.println(libro.toString());
+						}
+
+						InserimentoCartaceoDAO.delete(idCarrello, libro.getCodiceISBN());
+						visualizzaOrdineCartaceo(idOrdineCartaceo);
+					}
+				}
+
+				//AZZERA IL PREZZO DEL CARRELLO
+				EntityCarrello carrello = CarrelloDAO.readCarrello(idCarrello);
+				carrello.setPrezzoTotale(0);
+				carrello.updatePrezzo();
+
+				//aggiornare stati
+				oC.setStato(StatiOrdineCartaceo.IN_PREPARAZIONE);
+				oC.updateStato();
+				oD.setStato(StatiOrdineDigitale.ACQUISTATO);
+				oD.updateStato();
+
+				return true;
 			}
-
-			//AZZERA IL PREZZO DEL CARRELLO
-			EntityCarrello carrello = CarrelloDAO.readCarrello(idCarrello);
-			carrello.setPrezzoTotale(0);
-			carrello.updatePrezzo();
-
-			//aggiornare stati
-			oC.setStato(StatiOrdineCartaceo.IN_PREPARAZIONE);
-			oC.updateStato();
-			oD.setStato(StatiOrdineDigitale.ACQUISTATO);
-			oD.updateStato();
-
-			return true;
-		}
 	
 		//RIFIUTATO
 		else{
@@ -514,7 +499,7 @@ public class GestioneLibreria {
 	}
 
 	//FUNZIONA CHE STAMPA IL CARRELLO
-	public void stampaCarrello(long idCarrello){
+	public void stampaCarrello(long idCarrello) throws OperationException{
 
 		try {
 
@@ -570,11 +555,9 @@ public class GestioneLibreria {
 			System.out.println("Prezzo totale: "+carrello.getPrezzoTotale()+"\n");
 
 		}catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new OperationException(e.getMessage());
 		} catch (DBConnectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new OperationException(e.getMessage());
 		}
 			
 
