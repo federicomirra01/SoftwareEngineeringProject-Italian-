@@ -33,8 +33,11 @@ import com.progettois.exception.DBConnectionException;
 import com.progettois.exception.ISBNAlreadyBoundedException;
 import com.progettois.exception.OperationException;
 
+
 public class GestioneLibreria {
 
+	//private int countCarrello;
+	//private static final int RANGECARRELLO = 5;
 	private static GestioneLibreria gL = null;
 
 	protected GestioneLibreria() {
@@ -122,8 +125,12 @@ public class GestioneLibreria {
 
 	}
 
-	public void popolaCarrello(long codiceISBN, int qtRichiesta, EntityClienteRegistrato eCR)
-			throws OperationException {
+	public void popolaCarrello(long codiceISBN, int qtRichiesta, EntityClienteRegistrato eCR) throws OperationException {
+
+		/*if((countCarrello + qtRichiesta)>5){
+			System.out.println("Limite massimo Carrello raggiunto");
+			return;			
+		}*/
 
 		try {
 
@@ -137,6 +144,9 @@ public class GestioneLibreria {
 				throw new OperationException("Quantità richiesta maggiore della quantità disponibile");
 
 			} else {
+
+				//countCarrello = countCarrello + qtRichiesta;
+
 				eIC = new EntityInserimentoCartaceo(eCR.getIdCarrello(), codiceISBN, qtRichiesta);
 
 				//libro non nel carrello
@@ -203,6 +213,13 @@ public class GestioneLibreria {
 
 	public void popolaCarrelo(long codiceISBN, EntityClienteRegistrato eCR) throws OperationException {
 
+		/*if(countCarrello==RANGECARRELLO){
+			System.out.println("Limite massimo Carrello raggiunto");
+			return;			
+		}
+
+		countCarrello++;*/
+
 		try {
 
 			EntityLibroDigitale eLD = LibroDigitaleDAO.readLibroDigitale(codiceISBN);
@@ -231,7 +248,7 @@ public class GestioneLibreria {
 
 	}
 
-	public boolean completaAcquisto(long idCarrello, long idClienteRegistrato) throws OperationException {
+	public void completaAcquisto(long idCarrello, long idClienteRegistrato) throws OperationException {
 
 		try {
 
@@ -257,6 +274,13 @@ public class GestioneLibreria {
 
 				listaLibriCartacei.put(LibroCartaceoDAO.readLibroCartaceo(codiceISBN), listaCodiciISBNCartacei.get(codiceISBN));
 			}
+
+			if(listaLibriCartacei.isEmpty()==true && listaLibriDigitali.isEmpty()==true){
+				System.out.println("ERRORE: Carrello vuoto");
+				return;
+			}
+			
+		
 			//ACCETTATO
 			if(banca==0){
 
@@ -318,7 +342,7 @@ public class GestioneLibreria {
 				oD.setStato(StatiOrdineDigitale.ACQUISTATO);
 				oD.updateStato();
 
-				return true;
+				System.out.println("Transazione eseguita con successo");
 			}
 	
 		//RIFIUTATO
@@ -357,9 +381,9 @@ public class GestioneLibreria {
 			carrello.setPrezzoTotale(0);
 			carrello.updatePrezzo();
 
-			return false;
+			System.out.println("ERRORE: Transazione negata");
 		}
-
+	
 		} catch (DAOException e) {
 			throw new OperationException(e.getMessage());
 		} catch (DBConnectionException e) {

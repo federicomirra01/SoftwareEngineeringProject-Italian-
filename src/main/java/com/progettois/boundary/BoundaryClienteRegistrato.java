@@ -201,9 +201,8 @@ public class BoundaryClienteRegistrato extends BoundaryCliente{
         GestioneLibreria gl = GestioneLibreria.getInstance();
 
         try {
-            if(gl.completaAcquisto(clienteRegistrato.getIdCarrello(), clienteRegistrato.getIdClienteRegistrato())==false)
-                System.out.println("Pagamento rifiutato");
-
+            gl.completaAcquisto(clienteRegistrato.getIdCarrello(), clienteRegistrato.getIdClienteRegistrato());
+        
         } catch (OperationException e) {
             System.out.println(e.getMessage());
         } catch(Exception e){
