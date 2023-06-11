@@ -1,29 +1,20 @@
 package com.progettois;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.Scanner;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.progettois.boundary.ApplicationBoundary;
-import com.progettois.boundary.BoundaryClienteRegistrato;
 import com.progettois.boundary.BoundaryDipendente;
 import com.progettois.control.GestioneLibreria;
-import com.progettois.entity.EntityClienteRegistrato;
 import com.progettois.entity.EntityDipendente;
 import com.progettois.exception.ISBNAlreadyBoundedException;
 import com.progettois.exception.OperationException;
 
 
-public class GestioneLibreriaTest {
+public class InserisciLibroTest {
 
 
     @Test

@@ -213,7 +213,7 @@ public class BoundaryDipendente {
 		}catch (ISBNAlreadyBoundedException e){
 			System.out.println(e.getMessage());
 		}catch(Exception e) {
-			System.out.println("Unexpexted exception, riprovare");
+			System.out.println("Unexpected exception, riprovare");
 			System.out.println();
 		}
 		
