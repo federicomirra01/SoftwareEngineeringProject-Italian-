@@ -14,7 +14,7 @@ import com.progettois.boundary.ApplicationBoundary;
 import com.progettois.boundary.BoundaryClienteRegistrato;
 import com.progettois.entity.EntityClienteRegistrato;
 
-public class CompletaACquistoTest {
+public class CompletaAcquistoTest {
 
     @Test
     public void carrelloVuotoTest(){
