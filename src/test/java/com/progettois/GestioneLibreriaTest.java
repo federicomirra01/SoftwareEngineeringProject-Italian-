@@ -42,7 +42,7 @@ public class GestioneLibreriaTest {
 
         bC.completaAcquisto();
 
-        //verify(scannerMock, times(1)).nextLine();
+        verify(scannerMock, times(5)).nextLine();
         verifyNoMoreInteractions(scannerMock);
     }
 
