@@ -13,51 +13,53 @@ public class ApplicationBoundary {
 
     private Scanner input;
 
-    public ApplicationBoundary(){
-        this.input = new Scanner(System.in);
+    public ApplicationBoundary(Scanner input){
+        this.input = input;
     }
 
     public void runApplication(){
 
-        String op = null;
-        boolean valido = false;
-        
-        while(true){
-            while(!valido){
-                try{
-        
-                    System.out.println("Benvenuto!");
-                    System.out.println("Inserire 1 per effettuare accesso");
-                    System.out.println("Inserire 2 per usare l'applicazione come cliente occasionale");
-                    System.out.println("Inserire 3 per chiudere l'applicazione");
-                    
+        try{
+            String op = null;
+            boolean valido = false;
+            
+            while(true){
+                while(!valido){
+                    try{
+            
+                        System.out.println("Benvenuto!");
+                        System.out.println("Inserire 1 per effettuare accesso");
+                        System.out.println("Inserire 2 per usare l'applicazione come cliente occasionale");
+                        System.out.println("Inserire 3 per chiudere l'applicazione");
+                        
 
-                    op = input.nextLine();
-                    if(op.equals("1") || op.equals("2") || op.equals("3")){
-                        valido = true;
+                        op = input.nextLine();
+                        if(op.equals("1") || op.equals("2") || op.equals("3")){
+                            valido = true;
+                        }
+                    } catch (NoSuchElementException e){
+                        e.printStackTrace();
+                    } catch (IllegalStateException e){
+                        e.printStackTrace();
                     }
-                } catch (NoSuchElementException e){
-                    e.printStackTrace();
-                } catch (IllegalStateException e){
-                    e.printStackTrace();
+
                 }
 
+                if(op.equals("1")){
+                    accedi();
+                    valido = false;
+                } else if(op.equals("2")) {
+                    BoundaryCliente bC = new BoundaryCliente(input);
+                    bC.runBoundaryCliente();
+                    valido = false;
+                } else{
+                    return;
+                }
             }
-
-            if(op.equals("1")){
-                accedi();
-                valido = false;
-            } else if(op.equals("2")) {
-                BoundaryCliente bC = new BoundaryCliente(input);
-                bC.runBoundaryCliente();
-                valido = false;
-            } else{
-                return;
-            }
+        }catch(Exception e){
+            System.out.println("Unexpected exception, riprovare");
         }
-        
     }
-    
     public void accedi(){
         
         String nomeUtente = null;
