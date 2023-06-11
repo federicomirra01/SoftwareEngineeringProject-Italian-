@@ -4,17 +4,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-
 import java.util.Scanner;
-
 import org.junit.Test;
 import org.mockito.Mockito;
-
 import com.progettois.boundary.ApplicationBoundary;
-import com.progettois.boundary.BoundaryClienteRegistrato;
-import com.progettois.entity.EntityClienteRegistrato;
 
-public class CompletaACquistoTest {
+public class CompletaAcquistoTest {
 
     @Test
     public void carrelloVuotoTest(){
@@ -23,9 +18,9 @@ public class CompletaACquistoTest {
 
         when(scannerMock.nextLine())
                 .thenReturn("1")
-                .thenReturn("tommaso")
-                .thenReturn("tommaso")
-                .thenReturn("3")
+                .thenReturn("tommaso") //nomeutente
+                .thenReturn("tommaso") //password
+                .thenReturn("3") //completaAcquisto
                 .thenReturn(null);
 
         ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
@@ -41,23 +36,47 @@ public class CompletaACquistoTest {
 
         Scanner scannerMock = Mockito.mock(Scanner.class);
 
-        /*when(scannerMock.nextLine())
-                .thenReturn("1")
-                .thenReturn("tommaso")
-                .thenReturn("tommaso")
-                .thenReturn("3")
-                .thenReturn(null);*/
+        when(scannerMock.nextLine())
+                .thenReturn("1") //accedi
+                .thenReturn("tommaso") //nomeutente
+                .thenReturn("tommaso")  //password
+                .thenReturn("2") //popola carrello
+                .thenReturn("1") //cartaceo
+                .thenReturn("1111111111") //ISBN libro test
+                .thenReturn("1") //quantità richiesta
+                .thenReturn("n") 
+                .thenReturn("3") //completaAcquisto
+                .thenReturn(null);
 
+        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
 
-        BoundaryClienteRegistrato bC = new BoundaryClienteRegistrato(scannerMock, new EntityClienteRegistrato(10, "fmirra", "1", "Federico", "Mirra", "via Pietro Mascagni, 5", 81041,380641874,"Bellona",
-        "federicomirra01@gmail.com", 9));
+        aB.runApplication();
 
-        //bC.popolaCarrello();
-
-        bC.completaAcquisto();
-
-        //verify(scannerMock, times(1)).nextLine();
+        verify(scannerMock, times(10)).nextLine();
         verifyNoMoreInteractions(scannerMock);
     }
-    
+    @Test
+    public void qtRichiestaTest1(){
+
+        Scanner scannerMock = Mockito.mock(Scanner.class);
+
+        when(scannerMock.nextLine())
+                .thenReturn("1") //accedi
+                .thenReturn("tommaso") //nomeutente
+                .thenReturn("tommaso")  //password
+                .thenReturn("2") //popola carrello
+                .thenReturn("1") //cartaceo
+                .thenReturn("1111111111") //ISBN libro test
+                .thenReturn("21") //quantità richiesta
+                .thenReturn("n") 
+                .thenReturn("3") //completaAcquisto
+                .thenReturn(null);
+
+        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
+
+        aB.runApplication();
+
+        verify(scannerMock, times(10)).nextLine();
+        verifyNoMoreInteractions(scannerMock);
+    }
 }
