@@ -47,7 +47,7 @@ public class PopolaCarrelloTest {
                 .thenReturn("CarmineTest") // nome utente
                 .thenReturn("1") //pssw
                 .thenReturn("2") // funzione
-                .thenReturn("2") // genere libro
+                .thenReturn("2") // tipo libro
                 .thenReturn(null); //ferma
 
         ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
@@ -70,7 +70,7 @@ public class PopolaCarrelloTest {
                 .thenReturn("CarmineTest") // nome utente
                 .thenReturn("1") //pssw
                 .thenReturn("2") // funzione
-                .thenReturn("a") // genere libro
+                .thenReturn("a") // tipo libro
                 .thenReturn(null); //ferma
 
         ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
@@ -93,7 +93,7 @@ public class PopolaCarrelloTest {
                 .thenReturn("CarmineTest") // nome utente
                 .thenReturn("1") //pssw
                 .thenReturn("2") // funzione
-                .thenReturn("1") // genere libro
+                .thenReturn("1") // tipo libro
                 .thenReturn(Long.toString(CodiceISBN)) //codice ISBN 
                 .thenReturn(null); //ferma
 
