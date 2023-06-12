@@ -19,7 +19,7 @@ public class OrdineDigitaleDAO {
         try {
                 
             Connection conn = DBManager.getConnection();
-            String query = "INSERT INTO ORDINEDIGITALE (CODICISCARICAMENTO, DATASCARICAMENTO, STATO, IDCLIENTEREGISTRATO) VALUES (NULL, NULL, NULL, ?);";
+            String query = "INSERT INTO ORDINEDIGITALE (DATASCARICAMENTO, STATO, IDCLIENTEREGISTRATO) VALUES (NULL, NULL, ?);";
             String query2 = "SELECT MAX(IDORDINEDIGITALE) FROM ORDINEDIGITALE";
             
             try {
