@@ -64,8 +64,9 @@ public class BoundaryClienteRegistrato extends BoundaryCliente{
     
 
     public void popolaCarrello(){
-
+        
         GestioneLibreria gl = GestioneLibreria.getInstance();
+        //funzione per far visualizzare al cliente la lista dei libri disponibili
         visualizzaLibriDisponibili();
         String op = null;
         long codiceISBN = 0L;
@@ -103,6 +104,7 @@ public class BoundaryClienteRegistrato extends BoundaryCliente{
 
                             System.out.println("Inserire codice ISBN");
                             codiceISBN = Long.parseLong(input.nextLine());
+                            //controllo se è presente il codice ISBN nel datbase
                             if(LibroCartaceoDAO.readLibroCartaceo(codiceISBN) != null)
                                 valido = true;
                         } catch(NoSuchElementException e) {
@@ -122,9 +124,10 @@ public class BoundaryClienteRegistrato extends BoundaryCliente{
                     while(!valido){
                     
                         try{
-
+                            //richiesta della quantità da voler acquistare
                             System.out.println("Inserire quantità da acquistare");
                             qtRichiesta = Integer.parseInt(input.nextLine());
+                            //controllo se è maggiore di 0
                             if(qtRichiesta > 0)
                                 valido = true;
 
@@ -139,6 +142,7 @@ public class BoundaryClienteRegistrato extends BoundaryCliente{
                     valido = false;
 
                     try {
+                        //chiamo la funzione popolaCarrello per libro cartaceo
                         gl.popolaCarrello(codiceISBN, qtRichiesta, clienteRegistrato);
                     } catch (OperationException e) {
                         System.out.println(e.getMessage());

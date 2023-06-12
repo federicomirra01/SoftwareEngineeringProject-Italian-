@@ -216,6 +216,62 @@ public class PopolaCarrelloTest {
     }
 
 
+    @Test
+    public void PopolaCarrelloTest09(){
+            
+        long CodiceISBN=1234567890;
+        int qtRichiesta=3;
+
+        Scanner scannerMock = Mockito.mock(Scanner.class);
+
+        when(scannerMock.nextLine())
+                .thenReturn("1") //aaccesso
+                .thenReturn("CarmineTest") // nome utente
+                .thenReturn("1") //pssw
+                .thenReturn("2") // funzione
+                .thenReturn("1") // genere libro
+                .thenReturn(Long.toString(CodiceISBN)) //codice ISBN 
+                .thenReturn(Integer.toString(qtRichiesta)) //quantita richiesta
+                .thenReturn("n") //ferma
+                .thenReturn(null); //ferma
+
+        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
+
+        aB.runApplication();
+
+        verify(scannerMock, times(9)).nextLine();
+        verifyNoMoreInteractions(scannerMock);
+    }
+
+    @Test
+    public void PopolaCarrelloTest10(){
+            
+        long CodiceISBN=1234567890;
+        int qtRichiesta=5;
+        //test controllato con quantità disponibile 4 (thinking in java)
+
+        Scanner scannerMock = Mockito.mock(Scanner.class);
+
+        when(scannerMock.nextLine())
+                .thenReturn("1") //aaccesso
+                .thenReturn("CarmineTest") // nome utente
+                .thenReturn("1") //pssw
+                .thenReturn("2") // funzione
+                .thenReturn("1") // genere libro
+                .thenReturn(Long.toString(CodiceISBN)) //codice ISBN 
+                .thenReturn(Integer.toString(qtRichiesta)) //quantita richiesta
+                .thenReturn("n") //ferma
+                .thenReturn(null); //ferma
+
+        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
+
+        aB.runApplication();
+
+        verify(scannerMock, times(9)).nextLine();
+        verifyNoMoreInteractions(scannerMock);
+    }
+
+
 }
     
 

@@ -27,7 +27,7 @@ public class CompletaAcquistoTest {
 
         aB.runApplication();
 
-        verify(scannerMock, times(5)).nextLine();
+        verify(scannerMock, times(4)).nextLine();
         verifyNoMoreInteractions(scannerMock);
     }
 

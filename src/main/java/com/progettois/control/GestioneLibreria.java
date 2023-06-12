@@ -126,6 +126,7 @@ public class GestioneLibreria {
 
 	}
 
+	//popolaCarrello per libri Cartacei 
 	public void popolaCarrello(long codiceISBN, int qtRichiesta, EntityClienteRegistrato eCR) throws OperationException {
 
 
@@ -178,6 +179,7 @@ public class GestioneLibreria {
 
 	}
 
+	//popolaCarrello per libri digitali
 	public void popolaCarrelo(long codiceISBN, EntityClienteRegistrato eCR) throws OperationException {
 
 
