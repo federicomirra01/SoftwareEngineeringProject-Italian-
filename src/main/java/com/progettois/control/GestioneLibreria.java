@@ -189,7 +189,7 @@ public class GestioneLibreria {
 			EntityLibroDigitale eLD = LibroDigitaleDAO.readLibroDigitale(codiceISBN);
 			EntityInserimentoDigitale eID = new EntityInserimentoDigitale(eCR.getIdCarrello(), codiceISBN);
 			EntityCarrello carrello = CarrelloDAO.readCarrello(eCR.getIdCarrello());
-
+			//controlla se il libro gia è presente nel carrello 
 			if (!eID.readInserimentoDigitale().contains(codiceISBN)) {
 
 				eID.createInserimentoDigitale();

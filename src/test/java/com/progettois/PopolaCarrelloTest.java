@@ -248,7 +248,7 @@ public class PopolaCarrelloTest {
             
         long CodiceISBN=1234567890;
         int qtRichiesta=5;
-        //test controllato con quantità disponibile 4 (thinking in java)
+        //test eseguito con libro cartaceo avente quantità disponibile 4 
 
         Scanner scannerMock = Mockito.mock(Scanner.class);
 
