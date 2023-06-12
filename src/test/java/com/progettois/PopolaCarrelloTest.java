@@ -48,11 +48,7 @@ public class PopolaCarrelloTest {
                 .thenReturn("CarmineTest") // nome utente
                 .thenReturn("1") //pssw
                 .thenReturn("2") // funzione
-<<<<<<< Updated upstream
-                .thenReturn("2") // tipo libro
-=======
-                .thenReturn("9") // genere libro
->>>>>>> Stashed changes
+                .thenReturn("9") // tipo libro
                 .thenReturn(null); //ferma
 
         ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
@@ -63,34 +59,9 @@ public class PopolaCarrelloTest {
         verifyNoMoreInteractions(scannerMock);
     }
 
+    
     @Test
     public void PopolaCarrelloTest03(){
-<<<<<<< Updated upstream
-        
-        
-
-        Scanner scannerMock = Mockito.mock(Scanner.class);
-
-        when(scannerMock.nextLine())
-                .thenReturn("1") //aaccesso
-                .thenReturn("CarmineTest") // nome utente
-                .thenReturn("1") //pssw
-                .thenReturn("2") // funzione
-                .thenReturn("a") // tipo libro
-                .thenReturn(null); //ferma
-
-        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
-
-        aB.runApplication();
-
-        verify(scannerMock, times(7)).nextLine();
-        verifyNoMoreInteractions(scannerMock);
-    }
-
-    @Test
-    public void PopolaCarrelloTest04(){
-=======
->>>>>>> Stashed changes
 
         long CodiceISBN=1234567899;//codice ISBN errato
 
@@ -192,6 +163,7 @@ public class PopolaCarrelloTest {
     }
     @Test
     public void PopolaCarrelloTest07(){
+        
         long CodiceISBN=1234567890;
         int qtRichiesta=1;
 
