@@ -1,8 +1,6 @@
 package com.progettois;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+
 import static org.mockito.Mockito.when;
 
 import java.util.Scanner;
@@ -10,7 +8,6 @@ import java.util.Scanner;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.progettois.boundary.ApplicationBoundary;
 import com.progettois.boundary.BoundaryDipendente;
 import com.progettois.control.GestioneLibreria;
 import com.progettois.entity.EntityDipendente;

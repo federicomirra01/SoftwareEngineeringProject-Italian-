@@ -11,18 +11,19 @@ import com.progettois.exception.DBConnectionException;
 
 public class AcquistoDigitaleDAO {
 
-    public static void createAcquistoDigitale(long idOrdineDigitale, long codiceISBN) throws DAOException, DBConnectionException{
+    public static void createAcquistoDigitale(long idOrdineDigitale, long codiceISBN, String codiceScaricamento) throws DAOException, DBConnectionException{
 
         try {
                 
             Connection conn = DBManager.getConnection();
-            String query = "INSERT INTO ACQUISTODIGITALE VALUES (?,?);";
+            String query = "INSERT INTO ACQUISTODIGITALE VALUES (?,?,?);";
             
             try {
                 PreparedStatement stmt = conn.prepareStatement(query);
                 
                 stmt.setLong(1, idOrdineDigitale);
 				stmt.setLong(2, codiceISBN);
+                stmt.setString(3, codiceScaricamento);
 				stmt.executeUpdate();
 
             }catch(SQLException e) {

@@ -9,10 +9,21 @@ import com.progettois.exception.DBConnectionException;
 public class EntityInserimentoDigitale {
 
     long idCarrello, codiceISBN;
+    String codiceScaricamento;
+
+   
 
     public EntityInserimentoDigitale(long idCarrello, long codiceISBN) {
         this.idCarrello = idCarrello;
         this.codiceISBN = codiceISBN;
+    }
+
+    public String getCodiceScaricamento() {
+        return codiceScaricamento;
+    }
+
+    public void setCodiceScaricamento(String codiceScaricamento) {
+        this.codiceScaricamento = codiceScaricamento;
     }
 
     public long getIdCarrello() {

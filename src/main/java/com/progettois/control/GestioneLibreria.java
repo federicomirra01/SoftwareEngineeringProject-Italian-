@@ -2,6 +2,7 @@ package com.progettois.control;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.UUID;
 
 import com.progettois.abstractClass.Libro;
 import com.progettois.abstractClass.Utente;
@@ -127,10 +128,6 @@ public class GestioneLibreria {
 
 	public void popolaCarrello(long codiceISBN, int qtRichiesta, EntityClienteRegistrato eCR) throws OperationException {
 
-		/*if((countCarrello + qtRichiesta)>5){
-			System.out.println("Limite massimo Carrello raggiunto");
-			return;			
-		}*/
 
 		try {
 
@@ -144,8 +141,6 @@ public class GestioneLibreria {
 				throw new OperationException("Quantità richiesta maggiore della quantità disponibile");
 
 			} else {
-
-				//countCarrello = countCarrello + qtRichiesta;
 
 				eIC = new EntityInserimentoCartaceo(eCR.getIdCarrello(), codiceISBN, qtRichiesta);
 
@@ -170,36 +165,8 @@ public class GestioneLibreria {
 					eIC.updateQt();
 				}
 				
-				/*carrello.getLibri().add(eLC);
-				
-				carrello.setPrezzoTotale(carrello.getPrezzoTotale() + (eLC.getPrezzo() * qtRichiesta));*/
 
 				carrello.updatePrezzo();
-
-
-				/*Hashtable<Long, Integer> listaCodiciISBNCartacei = InserimentoCartaceoDAO
-						.readInserimentoCartaceo(eCR.getIdCarrello());
-
-				for (Long codiceISBNCartaceo : listaCodiciISBNCartacei.keySet()) {
-
-					//stampa
-					LibroCartaceoDAO.readLibroCartaceo(codiceISBNCartaceo).toString();
-					System.out.println();
-				}
-
-				
-
-				for(Libro libro : carrello.getLibri()){
-
-					//System.out.println(libro.toString());
-					System.out.println("Codice ISBN: " + libro.getCodiceISBN() + "\n| Titolo: " + libro.getTitolo() + "\n| Autori: " 
-					+ libro.getAutori() + "\n| Casa editrice: "+ libro.getCasaEditrice() + "\n| Genere: " + libro.getGenere() + "\n| Prezzo: " 
-					+ libro.getPrezzo()+ "\n| Quantità richiesta: " +qtRichiesta);
-					
-				}
-
-			System.out.println("| Prezzo totale carrello: " + carrello.getPrezzoTotale());*/
-
 
 			}
 
@@ -213,12 +180,6 @@ public class GestioneLibreria {
 
 	public void popolaCarrelo(long codiceISBN, EntityClienteRegistrato eCR) throws OperationException {
 
-		/*if(countCarrello==RANGECARRELLO){
-			System.out.println("Limite massimo Carrello raggiunto");
-			return;			
-		}
-
-		countCarrello++;*/
 
 		try {
 
@@ -288,10 +249,11 @@ public class GestioneLibreria {
 
 					long idOrdineDigitale = oD.createOrdineDigitale();
 					oD.setIdOrdine(idOrdineDigitale);
+					String codiceScaricamento = null;
 
 					for (EntityLibroDigitale libro : listaLibriDigitali) {
-
-						AcquistoDigitaleDAO.createAcquistoDigitale(idOrdineDigitale, libro.getCodiceISBN());
+						codiceScaricamento = generateUniqueCode();
+						AcquistoDigitaleDAO.createAcquistoDigitale(idOrdineDigitale, libro.getCodiceISBN(), codiceScaricamento);
 
 						oD.setPrezzo(oD.getPrezzo() + libro.getPrezzo());
 						oD.updatePrezzo();
@@ -341,7 +303,6 @@ public class GestioneLibreria {
 				oC.updateStato();
 				oD.setStato(StatiOrdineDigitale.ACQUISTATO);
 				oD.updateStato();
-
 				System.out.println("Transazione eseguita con successo");
 			}
 	
@@ -391,6 +352,12 @@ public class GestioneLibreria {
 		}
 
 	}
+
+	private String generateUniqueCode() {
+        UUID uuid = UUID.randomUUID();
+        String uniqueCode = uuid.toString().replace("-", "").substring(0, 10);
+        return uniqueCode;
+    }
 
 	public void registrati(String nomeUtente, String password, String nome, String cognome, String indirizzo,
 			String città, String email, int cap, long telefono) throws OperationException {
