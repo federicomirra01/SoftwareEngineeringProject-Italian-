@@ -36,10 +36,11 @@ public class PopolaCarrelloTest {
         verifyNoMoreInteractions(scannerMock);
     }
 
+    
     @Test
     public void PopolaCarrelloTest02(){
-
-
+        
+        
         Scanner scannerMock = Mockito.mock(Scanner.class);
 
         when(scannerMock.nextLine())
@@ -47,7 +48,7 @@ public class PopolaCarrelloTest {
                 .thenReturn("CarmineTest") // nome utente
                 .thenReturn("1") //pssw
                 .thenReturn("2") // funzione
-                .thenReturn("2") // tipo libro
+                .thenReturn("9") // tipo libro
                 .thenReturn(null); //ferma
 
         ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
@@ -58,31 +59,9 @@ public class PopolaCarrelloTest {
         verifyNoMoreInteractions(scannerMock);
     }
 
+    
     @Test
     public void PopolaCarrelloTest03(){
-        
-        
-
-        Scanner scannerMock = Mockito.mock(Scanner.class);
-
-        when(scannerMock.nextLine())
-                .thenReturn("1") //aaccesso
-                .thenReturn("CarmineTest") // nome utente
-                .thenReturn("1") //pssw
-                .thenReturn("2") // funzione
-                .thenReturn("a") // tipo libro
-                .thenReturn(null); //ferma
-
-        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
-
-        aB.runApplication();
-
-        verify(scannerMock, times(7)).nextLine();
-        verifyNoMoreInteractions(scannerMock);
-    }
-
-    @Test
-    public void PopolaCarrelloTest04(){
 
         long CodiceISBN=1234567899;//codice ISBN errato
 
@@ -105,32 +84,10 @@ public class PopolaCarrelloTest {
         verifyNoMoreInteractions(scannerMock);
     }
 
-    @Test
-    public void PopolaCarrelloTest05(){
-        
-        String CodiceISBN="1234c6799";//codice ISBN errato
-
-        Scanner scannerMock = Mockito.mock(Scanner.class);
-
-        when(scannerMock.nextLine())
-                .thenReturn("1") //aaccesso
-                .thenReturn("CarmineTest") // nome utente
-                .thenReturn("1") //pssw
-                .thenReturn("2") // funzione
-                .thenReturn("1") // genere libro
-                .thenReturn(CodiceISBN)//codice ISBN 
-                .thenReturn(null); //ferma
-
-        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
-
-        aB.runApplication();
-
-        verify(scannerMock, times(7)).nextLine();
-        verifyNoMoreInteractions(scannerMock);
-    }
+   
 
     @Test
-    public void PopolaCarrelloTest06(){
+    public void PopolaCarrelloTest04(){
         
         long CodiceISBN=1234567;//codice ISBN errato
 
@@ -154,7 +111,7 @@ public class PopolaCarrelloTest {
     }
 
     @Test
-    public void PopolaCarrelloTest07(){
+    public void PopolaCarrelloTest05(){
         
         long CodiceISBN = 123456789010121212L;
         
@@ -179,7 +136,7 @@ public class PopolaCarrelloTest {
     }
 
     @Test
-    public void PopolaCarrelloTest08(){
+    public void PopolaCarrelloTest06(){
 
         long CodiceISBN=1234567890;
         int qtRichiesta=1;
@@ -205,7 +162,8 @@ public class PopolaCarrelloTest {
         verifyNoMoreInteractions(scannerMock);
     }
     @Test
-    public void PopolaCarrelloTest09(){
+    public void PopolaCarrelloTest07(){
+        
         long CodiceISBN=1234567890;
         int qtRichiesta=1;
 
@@ -231,7 +189,7 @@ public class PopolaCarrelloTest {
     }
 
     @Test
-    public void PopolaCarrelloTest10(){
+    public void PopolaCarrelloTest08(){
             
         long CodiceISBN=1234567890;
         int qtRichiesta=1;
@@ -257,87 +215,8 @@ public class PopolaCarrelloTest {
         verifyNoMoreInteractions(scannerMock);
     }
 
-    
 
-    @Test
-    public void PopolaCarrelloTest11(){
-
-        long CodiceISBN=1234567890;
-        int qtRichiesta=1;
-
-        Scanner scannerMock = Mockito.mock(Scanner.class);
-
-        when(scannerMock.nextLine())
-                .thenReturn("1") //aaccesso
-                .thenReturn("CarmineTest") // nome utente
-                .thenReturn("1") //pssw
-                .thenReturn("2") // funzione
-                .thenReturn("1") // genere libro
-                .thenReturn(Long.toString(CodiceISBN)) //codice ISBN 
-                .thenReturn(Integer.toString(qtRichiesta)) //quantita richiesta
-                .thenReturn(null); //ferma
-
-        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
-
-        aB.runApplication();
-
-        verify(scannerMock, times(9)).nextLine();
-        verifyNoMoreInteractions(scannerMock);
-    }
-
-    @Test
-    public void PopolaCarrelloTest12(){
-
-        long CodiceISBN=1234567890;
-        Long qtRichiesta=2147483648L;
-
-        Scanner scannerMock = Mockito.mock(Scanner.class);
-
-        when(scannerMock.nextLine())
-                .thenReturn("1") //aaccesso
-                .thenReturn("CarmineTest") // nome utente
-                .thenReturn("1") //pssw
-                .thenReturn("2") // funzione
-                .thenReturn("1") // genere libro
-                .thenReturn(Long.toString(CodiceISBN)) //codice ISBN 
-                .thenReturn(Long.toString(qtRichiesta)) //quantita richiesta
-                .thenReturn(null); //ferma
-
-        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
-
-        aB.runApplication();
-
-        verify(scannerMock, times(8)).nextLine();
-        verifyNoMoreInteractions(scannerMock);
-    }
-
-    @Test
-    public void PopolaCarrelloTest13(){
-
-        long CodiceISBN=1234567890;
-        String qtRichiesta="wew22";
-
-        Scanner scannerMock = Mockito.mock(Scanner.class);
-
-        when(scannerMock.nextLine())
-                .thenReturn("1") //aaccesso
-                .thenReturn("CarmineTest") // nome utente
-                .thenReturn("1") //pssw
-                .thenReturn("2") // funzione
-                .thenReturn("1") // genere libro
-                .thenReturn(Long.toString(CodiceISBN)) //codice ISBN 
-                .thenReturn(qtRichiesta) //quantita richiesta
-                .thenReturn(null); //ferma
-
-        ApplicationBoundary aB = new ApplicationBoundary(scannerMock);
-
-        aB.runApplication();
-
-        verify(scannerMock, times(8)).nextLine();
-        verifyNoMoreInteractions(scannerMock); 
-    }
-
-    @Test
+@   Test
     public void PopolaCarrelloTest09(){
             
         long CodiceISBN=1234567890;
@@ -392,8 +271,4 @@ public class PopolaCarrelloTest {
         verifyNoMoreInteractions(scannerMock);
     }
 
-
 }
-    
-
-
