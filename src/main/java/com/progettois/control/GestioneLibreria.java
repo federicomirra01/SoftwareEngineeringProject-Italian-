@@ -56,6 +56,7 @@ public class GestioneLibreria {
 			double prezzo, int qtDisponibile) throws OperationException, ISBNAlreadyBoundedException {
 
 		try {
+			//controlla presenza del libro che si vuole inserire nel database
 			EntityLibroCartaceo eLC = LibroCartaceoDAO.readLibroCartaceo(CodiceISBN);
 
 			if (eLC == null) {
