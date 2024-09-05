@@ -1,7 +1,15 @@
-Il database usato è basato su MySql 
-I casi d'uso svolti sono:
-1. Inserisci Libro
-2. Popola Carrello
-3. Completa Acquisto
+Technologies: Java, MySQL, Mockito (framework for testing)
 
-Per i casi di testing è stato utilizzato il frameword Mockito
+Description:
+Developed a Library Management System using Java and MySQL without a graphical interface. This command-line based application automates the key processes of a library
+
+    Functionalities:
+        Add books to the library
+        Add books to the cart
+        Complete purchase (simulation of purchase with a random response, Accepted or Denied)
+        Database connection using MySQL for persistent data storage.
+    Role:
+        Designed and implemented the system using object-oriented programming principles.
+        Integrated MySQL for database handling, ensuring seamless data retrieval and storage.
+        Wrote SQL queries to manage complex transactions like book loans and returns.
+
